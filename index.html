@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        .border-job{
+            border-left: 5px solid #1F8986;
+        }
+
+        .border-job-comments{
+            border-bottom: 1px solid rgb(168, 166, 166);
+        }
+
+        .margin-bottom-logo{
+            margin-bottom: -22px;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-teal-600 w-full h-auto" >
+        <img src="assets/img/bg-header-mobile.svg" class="w-full" alt="">
+    </header>
+    <main class="w-full min-h-screen bg-teal-50 px-6 pt-10" >
+        <div class="mb-4" >
+            <img src="assets/img/photosnap.svg" class="h-12 w-12 z-10 margin-bottom-logo ml-5" alt="">
+            <div class="flex flex-col bg-white w-full h-auto shadow-xl pt-10 z-1 pb-6 px-5 rounded-md border-job" >
+                <div class="flex flex-col w-full h-auto" >
+                    <div class="flex mb-3" >
+                        <p class="text-md font-bold text-teal-600 mr-6" >Photosnap</p>
+                        <div class="flex">
+                            <div class="flex justify-center items-center bg-teal-600 mr-3 px-2 rounded-xl py-0.5">
+                                <p class="font-bold text-sm text-white" >NEW!</p>
+                            </div>
+                            <div class="flex justify-center items-center bg-black px-2 rounded-xl py-0.5">
+                                <p class="font-bold text-sm text-white" >FEATURED</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm font-bold text-black mb-3" >Senior Frontend Developer</p>
+                    <div class="flex items-center border-job-comments pb-3 mb-2">
+                        <p class="text-md text-gray-500 mr-3" >1d ago</p>
+                        <div class="rounded-full bg-gray-500 w-1 h-1 mr-3" ></div>
+                        <p class="text-md text-gray-500 mr-3" >Full Time</p>
+                        <div class="rounded-full bg-gray-500 w-1 h-1 mr-3" ></div>
+                        <p class="text-md text-gray-500 mr-4" >USA only</p>
+                    </div>
+                    <div class="flex flex-wrap h-auto w-10/12">
+                        <div class="flex items-center justify-center mr-4 bg-teal-50 w-auto px-2 py-2 rounded-lg" >
+                            <p class="font-bold text-md text-teal-600" >Frontend</p>
+                        </div>
+                        <div class="flex items-center justify-center mr-4 bg-teal-50 w-auto px-2 py-2 rounded-lg" >
+                            <p class="font-bold text-md text-teal-600" >Senior</p>
+                        </div>
+                        <div class="flex items-center justify-center mr-4 bg-teal-50 w-auto px-2 py-2 rounded-lg" >
+                            <p class="font-bold text-md text-teal-600" >HTML</p>
+                        </div>
+                        <div class="flex items-center justify-center mr-4 mt-3 bg-teal-50 w-auto px-2 py-2 rounded-lg" >
+                            <p class="font-bold text-md text-teal-600" >CSS</p>
+                        </div>
+                        <div class="flex items-center justify-center mt-3 bg-teal-50 w-auto px-2 py-2 rounded-lg" >
+                            <p class="font-bold text-md text-teal-600" >Javascript</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>   
+    <style>
+        .border-job{
+            border-left: 5px solid #1F8986;
+        }
+
+        .border-job-comments{
+            border-bottom: 1px solid rgb(168, 166, 166);
+        }
+
+        .margin-bottom-logo{
+            margin-bottom: -22px;
+        }
+
+        .margin-top-filters{
+            margin-top: -70px;
+        }
+
+        .width-filters{
+            width: 88%;
+            margin-top: -75px;
+        }
+
+        .border-filters{
+            border-top-right-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+        }
+
+        .max-height-auto{
+            max-height: auto;
+        }
+
+        @media(min-width: 420px){
+            .border-job-comments{
+                border-bottom: none;
+            }
+
+            .margin-bottom-logo{
+                position: absolute;
+                margin-top: 25px;
+            }
+            .border-job{
+                border-left: 4px solid #1F8986;
+            }
+            .max-height-auto{
+                max-height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-teal-600 z-10 w-full h-auto" >
+        <img id="header" src="assets/img/bg-header-mobile.svg" class="w-full sm:h-24 z-10" alt="">
+    </header>
+    <main x-data="jobsList" class="w-full min-h-screen bg-teal-50 px-6 pt-10 sm:flex sm:flex-col sm:items-center">
+        <div x-show="filters.length !== 0" class="flex shadow-xl sm:w-9/12 justify-between items-center rounded-md width-filters absolute z-20 bg-white px-5 sm:px-10 py-5 max-height-auto">
+            <div class="flex flex-wrap h-auto w-5/6">
+                <template x-for="filter in filters" >
+                    <div class="flex h-auto sm:h-8 w-auto mr-3 mb-3 sm:mb-0">
+                        <div class="flex items-center justify-center bg-teal-50 w-auto h-10 sm:h-full px-2 rounded-lg" >
+                            <p x-text="filter" class="font-bold text-xs text-teal-600" ></p>
+                        </div>
+                        <div @click="removeFilter(filter)" class="flex cursor-pointer h-10 sm:h-full sm:w-8 w-10 border-filters justify-center bg-teal-600 items-center">
+                            <img src="assets/img/icon-remove.svg" alt="">
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <p @click="clearFilters" class="text-xs pointer text-teal-600 font-bold" >Clear</p>
+        </div>  
+        <template x-for="(job, index) in jobs" >
+            <div  class="mb-4 sm:w-9/12 sm:mt-5" :class="index === 0 && filters > 0 && 'mt-12'"  >
+                <img :src="job.logo" class="h-12 w-12 sm:h-16 sm:w-16 z-10 sm:z-0 margin-bottom-logo ml-5" alt="">
+                <div class="flex flex-col sm:flex-row sm:itens-center sm:pt-0 sm:pb-0 bg-white w-full sm:h-28 h-auto shadow-xl pt-10 z-1 pb-6 px-5 rounded-md sm:rounded-sm border-job" >
+                    <div class="flex flex-col sm:mt-4 w-full sm:w-96 sm:ml-20 h-auto sm:h-12" >
+                        <div class="flex mb-3 sm:mb-2" >
+                            <p x-text="job.company" class="text-xs font-bold text-teal-600 mr-6" ></p>
+                            <div class="flex">
+                                <div x-show="job.new" class="flex justify-center items-center bg-teal-600 mr-3 px-2 rounded-xl py-0.5">
+                                    <p class="font-bold text-xs text-white" >NEW!</p>
+                                </div>
+                                <div x-show="job.featured" class="flex justify-center items-center bg-black px-2 rounded-xl py-0.5">
+                                    <p class="font-bold text-xs text-white" >FEATURED</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p x-text="job.position" class="text-sm font-bold text-black mb-3" ></p>
+                        <div class="flex items-center border-job-comments pb-3 mb-2">
+                            <p x-text="job.postedAt" class="text-xs text-gray-500 mr-3" ></p>
+                            <div class="rounded-full bg-gray-500 w-1 h-1 mr-3" ></div>
+                            <p x-text="job.contract" class="text-xs text-gray-500 mr-3" ></p>
+                            <div class="rounded-full bg-gray-500 w-1 h-1 mr-3" ></div>
+                            <p x-text="job.location" class="text-xs text-gray-500 mr-4" ></p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap h-auto w-10/12 sm:justify-end sm:items-center">
+                        <template x-for="language in job.languages">
+                            <div @click="addFilter(language)" class="flex cursor-pointer items-center justify-center mr-4 bg-teal-50 w-auto sm:h-8 px-2 py-2 rounded-lg" >
+                                <p x-text="language" class="font-bold text-xs text-teal-600" ></p>
+                            </div>
+                        </template>
+                        <template x-for="tool in job.tools" >
+                            <div @click="addFilter(tool)" class="flex cursor-pointer items-center justify-center mr-4 bg-teal-50 w-auto px-2 py-2 sm:h-8 rounded-lg" >
+                                <p x-text="tool" class="font-bold text-xs text-teal-600" ></p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </main>
+    <script>
+        document.addEventListener('alpine:init', () => {
+
+        const data = [
+    {
+        id: 1,
+        company: "Photosnap",
+        logo: "assets/img/photosnap.svg",
+        new: true,
+        featured: true,
+        position: "Senior Frontend Developer",
+        role: "Frontend",
+        level: "Senior",
+        postedAt: "1d ago",
+        contract: "Full Time",
+        location: "USA Only",
+        languages: ["HTML", "CSS", "JavaScript"],
+        tools: []
+      },
+      {
+        id: 2,
+        company: "Manage",
+        logo: "assets/img/manage.svg",
+        new: true,
+        featured: true,
+        position: "Fullstack Developer",
+        role: "Fullstack",
+        level: "Midweight",
+        postedAt: "1d ago",
+        contract: "Part Time",
+        location: "Remote",
+        languages: ["Python"],
+        tools: ["React"]
+      },
+      {
+        id: 3,
+        company: "Account",
+        logo: "assets/img/account.svg",
+        new: true,
+        featured: false,
+        position: "Junior Frontend Developer",
+        role: "Frontend",
+        level: "Junior",
+        postedAt: "2d ago",
+        contract: "Part Time",
+        location: "USA Only",
+        languages: ["JavaScript"],
+        tools: ["React", "Sass"]
+      },
+      {
+        id: 4,
+        company: "MyHome",
+        logo: "assets/img/myhome.svg",
+        new: false,
+        featured: false,
+        position: "Junior Frontend Developer",
+        role: "Frontend",
+        level: "Junior",
+        postedAt: "5d ago",
+        contract: "Contract",
+        location: "USA Only",
+        languages: ["CSS", "JavaScript"],
+        tools: []
+      },
+      {
+        id: 5,
+        company: "Loop Studios",
+        logo: "assets/img/loop-studios.svg",
+        new: false,
+        featured: false,
+        position: "Software Engineer",
+        role: "Fullstack",
+        level: "Midweight",
+        postedAt: "1w ago",
+        contract: "Full Time",
+        location: "Worldwide",
+        languages: ["JavaScript"],
+        tools: ["Ruby", "Sass"]
+      },
+      {
+        id: 6,
+        company: "FaceIt",
+        logo: "assets/img/faceit.svg",
+        new: false,
+        featured: false,
+        position: "Junior Backend Developer",
+        role: "Backend",
+        level: "Junior",
+        postedAt: "2w ago",
+        contract: "Full Time",
+        location: "UK Only",
+        languages: ["Ruby"],
+        tools: ["RoR"]
+      },
+      {
+        id: 7,
+        company: "Shortly",
+        logo: "assets/img/shortly.svg",
+        new: false,
+        featured: false,
+        position: "Junior Developer",
+        role: "Frontend",
+        level: "Junior",
+        postedAt: "2w ago",
+        contract: "Full Time",
+        location: "Worldwide",
+        languages: ["HTML", "JavaScript"],
+        tools: ["Sass"]
+      },
+      {
+        id: 8,
+        company: "Insure",
+        logo: "assets/img/insure.svg",
+        new: false,
+        featured: false,
+        position: "Junior Frontend Developer",
+        role: "Frontend",
+        level: "Junior",
+        postedAt: "2w ago",
+        contract: "Full Time",
+        location: "USA Only",
+        languages: ["JavaScript"],
+        tools: ["Vue", "Sass"]
+      },
+      {
+        id: 9,
+        company: "Eyecam Co.",
+        logo: "assets/img/eyecam-co.svg",
+        new: false,
+        featured: false,
+        position: "Full Stack Engineer",
+        role: "Fullstack",
+        level: "Midweight",
+        postedAt: "3w ago",
+        contract: "Full Time",
+        location: "Worldwide",
+        languages: ["JavaScript", "Python"],
+        tools: ["Django"]
+      },
+      {
+        id: 10,
+        company: "The Air Filter Company",
+        logo: "assets/img/the-air-filter-company.svg",
+        new: false,
+        featured: false,
+        position: "Front-end Dev",
+        role: "Frontend",
+        level: "Junior",
+        postedAt: "1mo ago",
+        contract: "Part Time",
+        location: "Worldwide",
+        languages: ["JavaScript"],
+        tools: ["React", "Sass"]
+      }
+]
+
+        Alpine.data('jobsList', () => ({
+
+        jobs: Alpine.reactive(data),
+        filters: Alpine.reactive([]),
+
+        addFilter(filter){
+            if(!this.filters.includes(filter)){
+                this.filters.push(filter)
+            }
+        },
+        removeFilter(filter){
+            let filterIndex = this.filters.findIndex((filterArray)=> filterArray === filter);
+            return this.filters.splice(filterIndex, 1);
+        },
+        clearFilters(){
+            this.filters = []
+        },
+
+        init(){
+            this.$watch('filters', ()=>{
+                if(this.filters.length > 0){
+                    this.jobs = data;
+                    this.filters.forEach((filter)=>{
+                        let jobsWithFilter = this.jobs.filter((job)=>job.languages.includes(filter) || job.tools.includes(filter));
+                        this.jobs = jobsWithFilter;
+                    })
+                }else{
+                    this.jobs = data;
+                }
+            });
+        }
+    
+        }))
+    });
+
+    let header = document.querySelector("#header");
+    if(window.innerWidth <= 420){
+        header.src = "assets/img/bg-header-mobile.svg";
+    }else{
+        header.src = "assets/img/bg-header-desktop.svg";
+    }
+
+    </script> 
+</body>
+</html>

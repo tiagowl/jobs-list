@@ -68,20 +68,20 @@
                         <div class="flex items-center justify-center bg-teal-50 w-auto h-10 sm:h-full px-2 rounded-lg" >
                             <p x-text="filter" class="font-bold text-xs text-teal-600" ></p>
                         </div>
-                        <div @click="removeFilter(filter)" class="flex cursor-pointer h-10 sm:h-full sm:w-8 w-10 border-filters justify-center bg-teal-600 items-center">
+                        <div @click="removeFilter(filter)" class="flex cursor-pointer h-10 hover:bg-black sm:h-full sm:w-8 w-10 border-filters justify-center bg-teal-600 items-center">
                             <img src="assets/img/icon-remove.svg" alt="">
                         </div>
                     </div>
                 </template>
             </div>
-            <p @click="clearFilters" class="text-xs pointer text-teal-600 font-bold" >Clear</p>
+            <p @click="clearFilters" class="text-xs cursor-pointer text-teal-600 hover:underline font-bold" >Clear</p>
         </div>  
         <template x-for="(job, index) in jobs" >
             <div  class="mb-4 sm:w-9/12 sm:mt-5" :class="index === 0 && filters > 0 && 'mt-12'"  >
                 <img :src="job.logo" class="h-12 w-12 sm:h-16 sm:w-16 z-10 sm:z-0 margin-bottom-logo ml-5" alt="">
                 <div class="flex flex-col sm:flex-row sm:itens-center sm:pt-0 sm:pb-0 bg-white w-full sm:h-28 h-auto shadow-xl pt-10 z-1 pb-6 px-5 rounded-md sm:rounded-sm border-job" >
-                    <div class="flex flex-col sm:mt-4 w-full sm:w-96 sm:ml-20 h-auto sm:h-12" >
-                        <div class="flex mb-3 sm:mb-2" >
+                    <div class="flex flex-col sm:mt-6 w-full sm:w-96 sm:ml-20 h-auto sm:h-10" >
+                        <div class="flex mb-3 sm:mb-1" >
                             <p x-text="job.company" class="text-xs font-bold text-teal-600 mr-6" ></p>
                             <div class="flex">
                                 <div x-show="job.new" class="flex justify-center items-center bg-teal-600 mr-3 px-2 rounded-xl py-0.5">
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p x-text="job.position" class="text-sm font-bold text-black mb-3" ></p>
+                        <p x-text="job.position" class="text-sm font-bold text-black mb-3 sm:mb-2 hover:text-teal-600" ></p>
                         <div class="flex items-center border-job-comments pb-3 mb-2">
                             <p x-text="job.postedAt" class="text-xs text-gray-500 mr-3" ></p>
                             <div class="rounded-full bg-gray-500 w-1 h-1 mr-3" ></div>
@@ -103,13 +103,13 @@
                     </div>
                     <div class="flex flex-wrap h-auto w-10/12 sm:justify-end sm:items-center">
                         <template x-for="language in job.languages">
-                            <div @click="addFilter(language)" class="flex cursor-pointer items-center justify-center mr-4 bg-teal-50 w-auto sm:h-8 px-2 py-2 rounded-lg" >
-                                <p x-text="language" class="font-bold text-xs text-teal-600" ></p>
+                            <div @click="addFilter(language)" class="flex cursor-pointer hover:bg-teal-600  items-center justify-center mr-4 bg-teal-50 w-auto sm:h-8 px-2 py-2 rounded-lg" >
+                                <p x-text="language" class="font-bold text-xs text-teal-600 hover:text-white" ></p>
                             </div>
                         </template>
                         <template x-for="tool in job.tools" >
-                            <div @click="addFilter(tool)" class="flex cursor-pointer items-center justify-center mr-4 bg-teal-50 w-auto px-2 py-2 sm:h-8 rounded-lg" >
-                                <p x-text="tool" class="font-bold text-xs text-teal-600" ></p>
+                            <div @click="addFilter(tool)" class="flex cursor-pointer items-center hover:bg-teal-600 justify-center mr-4 bg-teal-50 w-auto px-2 py-2 sm:h-8 rounded-lg" >
+                                <p x-text="tool" class="font-bold hover:text-white text-xs text-teal-600" ></p>
                             </div>
                         </template>
                     </div>
